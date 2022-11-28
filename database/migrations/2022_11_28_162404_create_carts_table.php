@@ -19,8 +19,6 @@ class CreateCartsTable extends Migration
             $table->integer('menu_id');
             $table->integer('qty');
             $table->string('notes');
-            $table->integer('flag');
-
             $table->timestamps();
         });
     }

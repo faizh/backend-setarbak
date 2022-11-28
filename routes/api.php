@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\CartController;
 
 
 /*
@@ -24,3 +25,8 @@ Route::get('/menu', [MenuController::class, 'index']);
 Route::get('/menu/beverages', [MenuController::class, 'getBeverages']);
 Route::get('/menu/foods', [MenuController::class, 'getFoods']);
 Route::get('/menu/{id}', [MenuController::class, 'show']);
+
+Route::get('/cart/{user_id}', [CartController::class, 'index']);
+Route::post('/cart', [CartController::class, 'store']);
+Route::put('/cart/{cart_id}', [CartController::class, 'update']);
+Route::delete('/cart/{cart_id}', [CartController::class, 'destroy']);
