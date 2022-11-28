@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MenuController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/menu', [MenuController::class, 'index']);
+Route::get('/menu/beverages', [MenuController::class, 'getBeverages']);
+Route::get('/menu/foods', [MenuController::class, 'getFoods']);
+Route::get('/menu/{id}', [MenuController::class, 'show']);
