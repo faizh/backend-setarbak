@@ -27,9 +27,23 @@ class MenuController extends Controller
         return response()->json($data, 200);
     }
 
+    public function getBeveragesPaginations()
+    {
+        $data = MenuModel::where('category', 1)->paginate(6);
+
+        return response()->json($data, 200);
+    }
+
     public function getFoods()
     {
         $data = MenuModel::where('category', 2)->get();
+
+        return response()->json($data, 200);
+    }
+
+    public function getFoodsPaginations()
+    {
+        $data = MenuModel::where('category', 2)->paginate(6);
 
         return response()->json($data, 200);
     }
