@@ -29,6 +29,7 @@ Route::get('/menu/beverages/paginated', [MenuController::class, 'getBeveragesPag
 Route::get('/menu/beverages/search/{param}', [MenuController::class, 'searchBeveragesMenu']);
 Route::get('/menu/foods', [MenuController::class, 'getFoods']);
 Route::get('/menu/foods/paginated', [MenuController::class, 'getFoodsPaginations']);
+Route::get('/menu/foods/search/{param}', [MenuController::class, 'searchFoodsMenu']);
 Route::get('/menu/{id}', [MenuController::class, 'show']);
 
 Route::get('/cart/{user_id}', [CartController::class, 'index']);
