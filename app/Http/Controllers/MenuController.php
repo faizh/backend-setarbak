@@ -34,6 +34,15 @@ class MenuController extends Controller
         return response()->json($data, 200);
     }
 
+    public function searchBeveragesMenu($param)
+    {
+        $data = MenuModel::where('name', 'like', '%'.$param.'%')
+                ->where('category', 1)
+                ->paginate(6);
+
+        return response()->json($data, 200);
+    }
+
     public function getFoods()
     {
         $data = MenuModel::where('category', 2)->get();

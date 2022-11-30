@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/menu', [MenuController::class, 'index']);
 Route::get('/menu/beverages', [MenuController::class, 'getBeverages']);
 Route::get('/menu/beverages/paginated', [MenuController::class, 'getBeveragesPaginations']);
+Route::get('/menu/beverages/search/{param}', [MenuController::class, 'searchBeveragesMenu']);
 Route::get('/menu/foods', [MenuController::class, 'getFoods']);
 Route::get('/menu/foods/paginated', [MenuController::class, 'getFoodsPaginations']);
 Route::get('/menu/{id}', [MenuController::class, 'show']);
