@@ -20,6 +20,7 @@ class CreateMenusTable extends Migration
             $table->bigInteger('price')->nullable();
             $table->text('img_src')->nullable();
             $table->integer('category')->unsigned()->nullable();
+            $table->integer('sub_category');
             $table->timestamps();
         });
     }
