@@ -95,6 +95,7 @@ class MenuController extends Controller
                 ->paginate(6);
 
         return response()->json($data, 200);
+
     }
 
     public function filterMenuData(Request $request)
@@ -118,7 +119,6 @@ class MenuController extends Controller
                 $sub_category[] = $value->name;
             }
         }
-        dump($sub_category);exit;
 
         $query = MenuModel::select('menus.*')
                 ->join('sub_category', 'sub_category.id', '=', 'menus.sub_category')
@@ -130,7 +130,6 @@ class MenuController extends Controller
         }
 
         $results = $query->paginate(6);
-
         return response()->json($results, 200);
     }
 
