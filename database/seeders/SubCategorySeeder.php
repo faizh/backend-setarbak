@@ -16,7 +16,7 @@ class SubCategorySeeder extends Seeder
      */
     public function run()
     {
-        $categories = [
+        $sub_categories = [
             [
                 'id'    => 1,
                 'category_id'   => 1,
@@ -48,6 +48,6 @@ class SubCategorySeeder extends Seeder
                 'name' => 'Cakes & Sweets'
             ],
         ];
-        DB::table('menu_categories')->insert($categories);
+        DB::table('sub_category')->insert($sub_categories);
     }
 }

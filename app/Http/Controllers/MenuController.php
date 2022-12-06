@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\MenuModel;
+use App\Models\SubCategoryModel;
 
 class MenuController extends Controller
 {
@@ -36,6 +37,10 @@ class MenuController extends Controller
 
     public function searchBeveragesMenu($param)
     {
+        if ($param == 'get_all') {
+            $param = '';
+        }
+
         $data = MenuModel::where('name', 'like', '%'.$param.'%')
                 ->where('category', 1)
                 ->paginate(6);
@@ -43,14 +48,30 @@ class MenuController extends Controller
         return response()->json($data, 200);
     }
 
-    public function searchCategoryBeveragesMenu($param)
+    public function searchCategoryBeveragesMenu($search, Request $param)
     {
-        dump($param);
-        // $data = MenuModel::where('name', 'like', '%'.$param.'%')
-        //         ->where('category', 1)
-        //         ->paginate(6);
+        $categories = $param->categories;
+        if ($categories[0] == 'all') {
+            $data = SubCategoryModel::all();
 
-        // return response()->json($data, 200);
+            $categories = [];
+            foreach ($data as $value) {
+                $categories[] = $value->name;
+            }
+        }
+
+        if ($search == 'all') {
+            $search = '';
+        }
+
+        $data = MenuModel::select('menus.*')
+                ->join('sub_category', 'sub_category.id', '=', 'menus.sub_category')
+                ->whereIn('sub_category.name',  $categories)
+                ->where('category', 1)
+                ->where('menus.name','like', '%'.$search.'%')
+                ->paginate(6);
+
+        return response()->json($data, 200);
     }
 
     public function getFoods()
@@ -74,6 +95,43 @@ class MenuController extends Controller
                 ->paginate(6);
 
         return response()->json($data, 200);
+    }
+
+    public function filterMenuData(Request $request)
+    {
+        $category       = $request->category;
+        $sub_category   = $request->sub_category;
+        $search_keyword = $request->search_keywords;
+        $category_id    = NULL;
+
+        if ($category== 'beverages') {
+            $category_id = 1;
+        }elseif ($category == 'foods') {
+            $category_id = 2;
+        }
+
+        if ($sub_category[0] == 'all') {
+            $data = SubCategoryModel::all();
+
+            $sub_category = [];
+            foreach ($data as $value) {
+                $sub_category[] = $value->name;
+            }
+        }
+        dump($sub_category);exit;
+
+        $query = MenuModel::select('menus.*')
+                ->join('sub_category', 'sub_category.id', '=', 'menus.sub_category')
+                ->whereIn('sub_category.name',  $sub_category)
+                ->where('category', $category_id);
+        
+        if ($search_keyword != 'empty_keywords') {
+            $query->where('menus.name','like', '%'.$search_keyword.'%');
+        }
+
+        $results = $query->paginate(6);
+
+        return response()->json($results, 200);
     }
 
     /**
