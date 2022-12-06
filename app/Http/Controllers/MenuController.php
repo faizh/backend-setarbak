@@ -130,12 +130,7 @@ class MenuController extends Controller
         }
 
         $results = $query->paginate(6);
-
-        $headers = array(
-            "Access-Control-Allow-Origin" => "*"
-        );
-        
-        return response()->json($results, 200)->header('Access-Control-Allow-Origin', '*');
+        return response()->json($results, 200);
     }
 
     /**
