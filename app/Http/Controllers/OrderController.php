@@ -41,6 +41,7 @@ class OrderController extends Controller
         $order->user_id         = $input->user_id;
         $order->payment_total   = $input->payment_total;
         $order->order_status    = $input->order_status;
+        $order->table_no        = $input->table_no;
 
         if ($order->save()) {
             $msg    = "Insert Success";
