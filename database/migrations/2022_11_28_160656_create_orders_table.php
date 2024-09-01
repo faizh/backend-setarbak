@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->bigInteger('payment_total')->nullable();
             $table->integer('order_status')->unsigned()->nullable();
+            $table->integer('table_no');
             $table->timestamps();
         });
     }
